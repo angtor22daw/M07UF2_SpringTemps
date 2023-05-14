@@ -1,10 +1,14 @@
 /* Estilo del título */
-h2 {
+/* h2 {
+    
+
+  } */
+  #titol {
     font-family: Arial, sans-serif;
     font-size: 3em;
     color: white;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    margin-top: 20%;
+    margin-top: 2%;
     margin-bottom: 30px;
     text-align: center;
   }
@@ -12,7 +16,7 @@ h2 {
   /* Estilo del botón */
   a {
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
     padding: 12px 24px;
     background-color: #3080e8;
     color: white;
@@ -58,6 +62,7 @@ h2 {
   
   label {
     display: inline-block;
+    vertical-align: middle;
     position: relative;
     margin: 5px;
     padding-left: 30px;
@@ -86,6 +91,7 @@ h2 {
     line-height: 20px;
     text-align: center;
     color: #3080e8;
+    display: block;
   }
   
   /* Estilo del botón de guardar ciudades */
@@ -103,5 +109,27 @@ h2 {
     text-align: center;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease-in-out;
-    margin-top: 10%;
+    margin-top: 5%;
     }
+    input[type="submit"]:hover{
+        background-color: #245da9;
+        }
+
+    #previsions{
+        margin-top: 5px;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    /* Estilo de los checkbox */
+.form-check-label {
+    flex: 1;
+  }
+  
+  .form-check-inline {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  
