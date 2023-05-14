@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>DAW2 +  Spring</title>
+    <title>DASHBOARD</title>
     <link href="dashboard.css" rel="stylesheet" >
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -14,24 +14,25 @@
 <h5> Tria les ciutats per obtenir la seva previsió: </h5>
 
 <form action="/guardarCiutats" method="post">
-    <input type="checkbox" id="Barcelona" name="ciutatsSeleccionades" value="Barcelona">
-    <label for="Barcelona"> Barcelona</label><br>
-    <input type="checkbox" id="Madrid" name="ciutatsSeleccionades" value="Madrid">
-    <label for="Madrid"> Madrid</label><br>
-    <input type="checkbox" id="Almeria" name="ciutatsSeleccionades" value="Almeria">
-    <label for="Almeria"> Almeria</label><br>
-    <input type="checkbox" id="Milan" name="ciutatsSeleccionades" value="Milan">
-    <label for="Milan"> Milan</label><br>
-    <input type="checkbox" id="Porto" name="ciutatsSeleccionades" value="Porto">
-    <label for="Porto"> Porto</label><br>
+    <div th:each="ciutat : ${ciutats}">
+    <input type="checkbox" th:id="${ciutat.nom}" th:name="ciutatsSeleccionades" th:value="${ciutat.nom}">
+    <label th:for="${ciutat.nom}" th:text="${ciutat.nom}"></label><br>
+    </div>
+<!--    <input type="checkbox" id="Madrid" name="ciutatsSeleccionades" value="Madrid">-->
+<!--    <label for="Madrid"> Madrid</label><br>-->
+<!--    <input type="checkbox" id="Almeria" name="ciutatsSeleccionades" value="Almeria">-->
+<!--    <label for="Almeria"> Almeria</label><br>-->
+<!--    <input type="checkbox" id="Milan" name="ciutatsSeleccionades" value="Milan">-->
+<!--    <label for="Milan"> Milan</label><br>-->
+<!--    <input type="checkbox" id="Porto" name="ciutatsSeleccionades" value="Porto">-->
+<!--    <label for="Porto"> Porto</label><br>-->
     <input type="submit" value="Guardar ciutats">
 </form>
-<!--veure previsions-->
 
 <a id="previsions" href="/ciutats/previsio">Veure previsions</a> <br>
 
-<!--<a href="afegirAlumne.html">afegir alumne</a> <br>-->
-<!--<a href="/llistarPerCognom">llistar alumnes ordenats per cognom</a> <br>-->
-<!--<a href="/llistarPerNota">llistar alumnes ordenats per nota</a> <br>-->
+<a th:if="${idUsuari == '4454514873613'}" href="/ciutats/llistaDeCiutats">Gestionar les ciutats</a> <br>
+
+
 </body>
 </html>

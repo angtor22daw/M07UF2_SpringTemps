@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -35,6 +36,40 @@ public class CiutatController {
 
     @Autowired
     private UsuariRepository usuariRepository;
+
+    @PostMapping("/crearCiutat")
+    public String crearCiutat(@RequestParam("nom") String nom, @RequestParam("consultaFetch") String consultaFetch) {
+        Ciutat novaCiutat = new Ciutat(nom, consultaFetch,null);
+        ciutatRepository.save(novaCiutat);
+
+        return new ModelAndView("redirect:/ciutats/llistaDeCiutats").getViewName();
+    }
+
+    @GetMapping("/llistaDeCiutats")
+    public String llistatDeCiutats(Model model) {
+        List<Ciutat> ciutats = ciutatRepository.findAll();
+        model.addAttribute("ciutats", ciutats);
+        return "llistaDeCiutats";
+    }
+    @PostMapping("/modificarCiutat")
+    public String modificarCiutat(@RequestParam("nom") String nom,@RequestParam("consultaFetch") String novaConsultaFetch) {
+        Ciutat ciutat = ciutatRepository.findByNom(nom);
+
+        if (ciutat != null) {
+            ciutat.setConsultaFetch(novaConsultaFetch);
+            ciutatRepository.save(ciutat);
+        }
+
+        return new ModelAndView("redirect:/ciutats/llistaDeCiutats").getViewName();
+    }
+    @PostMapping("/eliminarCiutat")
+    public String eliminarCiutat(@RequestParam("nom") String nom) {
+        Ciutat ciutat = ciutatRepository.findByNom(nom);
+        if (ciutat != null) {
+            ciutatRepository.delete(ciutat);
+        }
+        return new ModelAndView("redirect:/ciutats/llistaDeCiutats").getViewName();
+    }
 
     /**
      * Retorna a la vista previsio un array de ciutats i un array dels dies
@@ -83,4 +118,5 @@ public class CiutatController {
         model.addAttribute("previsions", llistaPrevisions);
         return "previsio";
     }
+
 }

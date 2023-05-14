@@ -59,22 +59,24 @@ public class CiutatService {
      * Afegim els objectes de ciutat a l'array i cridem a la funció fetchPrevisioCiutats
      */
     public void actualitzarPrevisioCiutats(){
-        List<Ciutat> ciutats = new ArrayList<>();
+        List<Ciutat> ciutats = ciutatRepository.findAll();
 
-        Ciutat barcelona = new Ciutat("Barcelona", "https://api.open-meteo.com/v1/forecast?latitude=41.39&longitude=2.16&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
-        ciutats.add(barcelona);
-
-        Ciutat madrid = new Ciutat("Madrid", "https://api.open-meteo.com/v1/forecast?latitude=40.42&longitude=-3.70&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
-        ciutats.add(madrid);
-
-        Ciutat almeria = new Ciutat("Almeria", "https://api.open-meteo.com/v1/forecast?latitude=36.84&longitude=-2.46&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
-        ciutats.add(almeria);
-
-        Ciutat milan = new Ciutat("Milan", "https://api.open-meteo.com/v1/forecast?latitude=45.46&longitude=9.19&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
-        ciutats.add(milan);
-
-        Ciutat porto = new Ciutat("Porto", "https://api.open-meteo.com/v1/forecast?latitude=41.15&longitude=-8.61&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
-        ciutats.add(porto);
+//        List<Ciutat> ciutats = new ArrayList<>();
+//
+//        Ciutat barcelona = new Ciutat("Barcelona", "https://api.open-meteo.com/v1/forecast?latitude=41.39&longitude=2.16&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
+//        ciutats.add(barcelona);
+//
+//        Ciutat madrid = new Ciutat("Madrid", "https://api.open-meteo.com/v1/forecast?latitude=40.42&longitude=-3.70&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
+//        ciutats.add(madrid);
+//
+//        Ciutat almeria = new Ciutat("Almeria", "https://api.open-meteo.com/v1/forecast?latitude=36.84&longitude=-2.46&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
+//        ciutats.add(almeria);
+//
+//        Ciutat milan = new Ciutat("Milan", "https://api.open-meteo.com/v1/forecast?latitude=45.46&longitude=9.19&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
+//        ciutats.add(milan);
+//
+//        Ciutat porto = new Ciutat("Porto", "https://api.open-meteo.com/v1/forecast?latitude=41.15&longitude=-8.61&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
+//        ciutats.add(porto);
 
         fetchPrevisioCiutats(ciutats);
     }

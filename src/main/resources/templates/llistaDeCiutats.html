@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Afegir ciutat</title>
+</head>
+<body>
+<h1>Ciutats</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nom de la Ciutat</th>
+        <th>Consulta a la API</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ciutat : ${ciutats}">
+        <td th:text="${ciutat.nom}"></td>
+        <td th:text="${ciutat.consultaFetch}"></td>
+    </tr>
+    </tbody>
+</table>
+<h1>Afegir ciutat</h1>
+<form action="/ciutats/crearCiutat" method="post">
+    <input type="text" name="nom" placeholder="Nom de la ciutat">
+    <input type="text" name="consultaFetch" placeholder="URL de la crida a la API">
+    <input type="submit" value="Afegir nova ciutat">
+</form>
+<h2>Modificar ciutat</h2>
+<form action="/ciutats/modificarCiutat" method="post">
+    <input type="text" name="nom" placeholder="Nom de la ciutat">
+    <input type="text" name="consultaFetch" placeholder="Nova URL per la crida a l'API">
+    <input type="submit" value="Modificar ciutat">
+</form>
+<h2>Eliminar ciutat</h2>
+<form action="/ciutats/eliminarCiutat" method="post">
+    <input type="text" name="nom" placeholder="Nom de la ciutat">
+    <input type="submit" value="Eliminar ciutat">
+</form>
+<a href="/dashboard">Tornar al dashboard</a>
+</body>
+</html>
