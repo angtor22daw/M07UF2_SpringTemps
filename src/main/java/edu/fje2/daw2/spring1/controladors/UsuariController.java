@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,6 +28,9 @@ public class UsuariController {
      */
     @PostMapping("/guardarCiutats")
     public String guardarCiutats(@RequestParam("ciutatsSeleccionades") List<String> ciutatsSeleccionades, HttpSession session) {
+        if ( ciutatsSeleccionades.size() == 0) {
+            return new ModelAndView("redirect:/errorForm").getViewName();
+        }
         // Obtenir ID de l'usuari que ha iniciat sessió
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString()
@@ -38,6 +42,6 @@ public class UsuariController {
         // Guardar a la base de dades
         repositori.save(usuari);
 
-        return "previsio";
+        return new ModelAndView("redirect:/ciutats/previsio").getViewName();
     }
 }
