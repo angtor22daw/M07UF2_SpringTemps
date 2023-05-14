@@ -19,9 +19,15 @@ public class UsuariController {
     @Autowired
     private UsuariRepository repositori;
 
+    /**
+     * Guarda les ciutats seleccionades per l'usuari a la base de dades
+     * @param ciutatsSeleccionades Array de ciutats seleccionades per l'usuari
+     * @param session
+     * @return vista previsio.html
+     */
     @PostMapping("/guardarCiutats")
     public String guardarCiutats(@RequestParam("ciutatsSeleccionades") List<String> ciutatsSeleccionades, HttpSession session) {
-
+        // Obtenir ID de l'usuari que ha iniciat sessió
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString()
                 .substring(authentication.getPrincipal().toString().indexOf("username=") + 9);
@@ -29,7 +35,7 @@ public class UsuariController {
         System.out.println("Ciutats seleccionades: " + ciutatsSeleccionades);
 
         Usuari usuari = new Usuari(username,ciutatsSeleccionades);
-
+        // Guardar a la base de dades
         repositori.save(usuari);
 
         return "previsio";

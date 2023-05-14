@@ -36,28 +36,27 @@ public class CiutatController {
     @Autowired
     private UsuariRepository usuariRepository;
 
-    @GetMapping
-    public List<Ciutat> llistarCiutats() {
-        return ciutatRepository.findAll();
-    }
-
-    @GetMapping("/actualitzar")
-    public ResponseEntity<Void> actualitzarPrevisions() {
-        ciutatService.actualitzarPrevisioCiutats();
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
+    /**
+     * Retorna a la vista previsio un array de ciutats i un array dels dies
+     * @param model per pasar dades a la vista
+     * @return view previsio.html
+     */
     @GetMapping("/previsio")
     public String previsioCiutats(Model model) {
+        // Actualitza les previsions de les ciutats (Fetch + guardar a mongodb)
         ciutatService.actualitzarPrevisioCiutats();
+
+        // Obtenir l'usuari que ha iniciat sessió
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString()
                 .substring(authentication.getPrincipal().toString().indexOf("username=") + 9);
 
+        // Obtenir les ciutats de l'usuari
         List<Ciutat> llistaCiutats = new ArrayList<>();
         Usuari usuari = usuariRepository.findByOauthID(username);
         List<String> ciutatsUsuari = usuari.getCiutats();
 
+        // Afegir les ciutats existents al array llistaCiutats
         ciutatRepository.findAll().forEach(ciutat -> {
             if (ciutatsUsuari.contains(ciutat.getNom())) {
                 llistaCiutats.add(ciutat);
@@ -65,11 +64,11 @@ public class CiutatController {
         });
 
         System.out.println(llistaCiutats);
-        System.out.println(usuariRepository.findByOauthID(username).getCiutats());
-
+        // Array amb les previsions de cada ciutat (3 dies per ciutat)
         List<List<String>> llistaPrevisions = new ArrayList<>();
         for (Ciutat ciutat : llistaCiutats) {
             try {
+                // crida al metode getPrevisionsFromJSON per obtenir previsions de cada ciutat
                 List<String> previsions = ciutat.getPrevisionsFromJSON();
                 llistaPrevisions.add(previsions);
             } catch (JSONException e) {
@@ -77,16 +76,11 @@ public class CiutatController {
                 e.printStackTrace();
             }
         }
+        System.out.println(llistaPrevisions);
 
+        // Afegir els arrays a la vista
         model.addAttribute("ciutats", llistaCiutats);
         model.addAttribute("previsions", llistaPrevisions);
         return "previsio";
     }
-
-    /*
-    @RequestMapping(value={"/jugar", "/aaa"})
-    String mostrarpepe() {
-        return("previsio");
-    }*/
 }
-
