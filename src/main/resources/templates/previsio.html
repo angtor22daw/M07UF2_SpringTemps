@@ -3,16 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <title>Previsió</title>
-    <link href="previsio.css" rel="stylesheet" >
+    <!-- <link href="previsio.css" rel="stylesheet" > -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/weather-icons/css/weather-icons.min.css"/>
+    <style>/* Estilo del título */
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: 3em;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-align: center;
+          }
+          
+          /* Estilo del botón */
+          button {
+            display: inline-block;
+            position: relative;
+            z-index: 9999;
+            padding: 12px 24px;
+            background-color: #3080e8;
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10%;
+          }
+          
+          button:hover {
+            background-color: #245da9;
+          }
+          
+          /* Estilo del fondo */
+          body {
+            background-image: linear-gradient(120deg, #87CEFA, #ADD8E6, #BFEFFF, #ADD8E6, #87CEFA);
+            background-size: 400% 400%;
+            animation: gradient 30s ease infinite;
+            text-align: center;
+          }
+          
+          @keyframes gradient {
+            0% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+          i{
+            font-size: 3em;
+            padding: 0.2em;
+        }
+        table {
+  background-color: #fff;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+th {
+  text-align: left;
+  background-color: #eee;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+        </style>
 </head>
 <body>
 <h1>Llistat de ciutats</h1>
-<table border=2>
+<table >
     <thead>
     <tr>
-        <th>Nom de la Ciutat</th>
-        <th>Temporal</th>
+        <th>Ciutat</th>
+        <th style="text-align: center;">Temporal</th>
     </tr>
     </thead>
     <tbody>
@@ -21,9 +105,9 @@
         <td>
             <table>
                 <tr>
-                    <th>Dia 1</th>
-                    <th>Dia 2</th>
-                    <th>Dia 3</th>
+                    <th style="text-align: center;">Avui</th>
+                    <th style="text-align: center;">Dema</th>
+                    <th style="text-align: center;">Dema passat</th>
                 </tr>
                 <tr>
                     <span th:each="numWeathercode : ${previsions[__${dia.index}__]}">
