@@ -46,6 +46,11 @@ public class Ciutat {
         this.previsioJSON=previsioJSON;
     }
 
+    /**
+     *
+     * @return array amb les previsions de la ciutat (3 dies)
+     * @throws JSONException
+     */
     public List<String> getPrevisionsFromJSON() throws JSONException {
         List<String> previsions = new ArrayList<>();
 
@@ -57,22 +62,5 @@ public class Ciutat {
 
         return previsions;
     }
-    //if string = ciutat.nom add ciutat to new array
-//    //metodo al cual le pasamos array de string y nos devuelve arraylist ciutat
-//    public List<Ciutat> devolverArrayCiutats(List<String> ciutatsUser) {
-//        	List<Ciutat> novaLlista = new ArrayList<>();
-//        	for (String ciutat : ciutatsUser) {
-//                for (Ciutat ciutat1 : ciutats) {
-//                    if (ciutat.equals(ciutat1.getNom())) {
-//                        novaLlista.add(ciutat1);
-//                    }
-//                }
-//        	}
-//
-//
-//    }
-
-
-
 
 }

@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuariRepository extends MongoRepository<Usuari, String> {
+    //
     Usuari findByOauthID(String oauthID);
 }

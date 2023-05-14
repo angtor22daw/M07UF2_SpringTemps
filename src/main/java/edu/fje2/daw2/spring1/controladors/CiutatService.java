@@ -16,10 +16,13 @@ import java.util.List;
 
 @Service
 public class CiutatService {
-    List<Ciutat> ciutats = new ArrayList<>();
     @Autowired
     private CiutatRepository ciutatRepository;
 
+    /**
+     * Fa la consulta a l'API i guarda la resposta a l'objecte de la ciutat i al mongodb
+     * @param ciutats un array de ciutats
+     */
     public void fetchPrevisioCiutats(List<Ciutat> ciutats) {
         for (Ciutat ciutat : ciutats) {
             try {
@@ -39,8 +42,11 @@ public class CiutatService {
                         response.append(inputLine);
                     }
                     in.close();
+                    // resposta del servidor amb les dades de la previsió
                     String previsioJSON = response.toString();
+                    // Guardar resposta JSON a l'objecte de la ciutat
                     ciutat.setPrevisioJSON(previsioJSON);
+                    // Guardar a mongodb
                     ciutatRepository.save(ciutat);
                 }
             } catch (IOException e) {
@@ -49,8 +55,11 @@ public class CiutatService {
         }
     }
 
+    /**
+     * Afegim els objectes de ciutat a l'array i cridem a la funció fetchPrevisioCiutats
+     */
     public void actualitzarPrevisioCiutats(){
-
+        List<Ciutat> ciutats = new ArrayList<>();
 
         Ciutat barcelona = new Ciutat("Barcelona", "https://api.open-meteo.com/v1/forecast?latitude=41.39&longitude=2.16&daily=weathercode&forecast_days=3&timezone=Europe%2FBerlin", null);
         ciutats.add(barcelona);
