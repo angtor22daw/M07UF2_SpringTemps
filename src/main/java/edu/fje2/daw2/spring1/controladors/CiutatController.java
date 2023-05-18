@@ -27,16 +27,21 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/ciutats")
 public class CiutatController {
-
+    // Classe que fa la petició a la API
     @Autowired
     private CiutatService ciutatService;
-
+    // Repositori de ciutats
     @Autowired
     private CiutatRepository ciutatRepository;
-
+    // Repositori d'usuaris
     @Autowired
     private UsuariRepository usuariRepository;
-
+    /**
+     * Mètode que crea una nova ciutat a mongodb
+     * @param nom String amb el nom de la ciutat
+     * @param consultaFetch String que conté la consulta a la API
+     * @return vista llistaDeCiutats
+     */
     @PostMapping("/crearCiutat")
     public String crearCiutat(@RequestParam("nom") String nom, @RequestParam("consultaFetch") String consultaFetch) {
         Ciutat novaCiutat = new Ciutat(nom, consultaFetch,null);
@@ -44,13 +49,22 @@ public class CiutatController {
 
         return new ModelAndView("redirect:/ciutats/llistaDeCiutats").getViewName();
     }
-
+    /**
+     * Mètode que carrega la vista llistaDeCiutats i passem array de ciutats
+     * @return vista llistaDeCiutats
+     */
     @GetMapping("/llistaDeCiutats")
     public String llistatDeCiutats(Model model) {
         List<Ciutat> ciutats = ciutatRepository.findAll();
         model.addAttribute("ciutats", ciutats);
         return "llistaDeCiutats";
     }
+    /**
+     * Mètode que modifica el camp consultaFetch de la ciutat que ha rebut per paràmetre
+     * @nom String amb el nom de la ciutat
+     * @param novaConsultaFetch String que conté la nova consulta a la API
+     * @return vista llistaDeCiutats
+     */
     @PostMapping("/modificarCiutat")
     public String modificarCiutat(@RequestParam("nom") String nom,@RequestParam("consultaFetch") String novaConsultaFetch) {
         Ciutat ciutat = ciutatRepository.findByNom(nom);
@@ -62,6 +76,11 @@ public class CiutatController {
 
         return new ModelAndView("redirect:/ciutats/llistaDeCiutats").getViewName();
     }
+    /**
+     * Mètode que elimina la ciutat de mongodb
+     * @param nom String amb el nom de la ciutat
+     * @return vista llistaDeCiutats
+     */
     @PostMapping("/eliminarCiutat")
     public String eliminarCiutat(@RequestParam("nom") String nom) {
         Ciutat ciutat = ciutatRepository.findByNom(nom);
